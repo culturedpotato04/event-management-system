@@ -45,6 +45,27 @@ npm run dev
 ## API Base URL
 `/api/v1`
 
+## Vercel deployment
+
+Deploy the backend from the repository root and the frontend as a second Vercel
+project with `frontend` as its Root Directory. Configure Vercel environment
+variables in the dashboard; do not commit `.env` files.
+
+Backend production variables:
+- `MONGO_URI` — MongoDB Atlas connection string for the `event-management` database
+- `JWT_SECRET` — a strong, unique secret
+- `JWT_EXPIRE` — for example, `30d`
+- `NODE_ENV` — `production`
+- `FRONTEND_URL` — the final frontend production URL
+
+Frontend production variable:
+- `VITE_API_BASE_URL` — `<backend-production-url>/api/v1`
+
+After both deployments, set `FRONTEND_URL` to the frontend URL, redeploy the
+backend, then update `VITE_API_BASE_URL` and redeploy the frontend. Confirm
+`<backend-production-url>/api/v1/events` responds and that the browser can load
+events from the frontend without a CORS error.
+
 ## Features
 - Authentication (JWT, bcrypt, role-based)
 - Event Management (CRUD, status, categories, venues)
